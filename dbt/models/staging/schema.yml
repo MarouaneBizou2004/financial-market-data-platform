@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: stg_assets
+    description: "Cleaned and standardized dimensions of tradeable equities and ETFs."
+    columns:
+      - name: asset_key
+        description: "Primary surrogate key."
+        tests:
+          - unique
+          - not_null
+      - name: symbol
+        description: "Unique ticker symbol."
+        tests:
+          - unique
+          - not_null
+      - name: asset_type
+        description: "Classification of instrument."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['equity', 'etf', 'commodity', 'fixed_income']
+
+  - name: stg_market_prices
+    description: "Daily market prices and volumes at daily-asset grain."
+    columns:
+      - name: date_key
+        description: "Smart integer date foreign key referencing dim_date."
+        tests:
+          - not_null
+      - name: asset_key
+        description: "Surrogate key referencing stg_assets."
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_assets')
+              field: asset_key
+      - name: close_price
+        description: "End of day close price."
+        tests:
+          - not_null
+      - name: volume
+        description: "Total shares or ETF units traded."
+        tests:
+          - not_null

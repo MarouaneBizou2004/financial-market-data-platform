@@ -1,0 +1,39 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Large Data & Database Files (Reproducible via python main.py or make pipeline)
+data/raw/*.parquet
+data/raw/*.csv
+data/bronze/*.parquet
+data/bronze/*.csv
+data/silver/*.parquet
+data/silver/*.csv
+data/gold/*.parquet
+data/gold/*.csv
+data/*.db
+data/*.duckdb
+data/*.sqlite
+!data/**/.gitkeep
+
+# IDEs & System
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db

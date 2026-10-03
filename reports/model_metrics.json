@@ -1,0 +1,90 @@
+{
+    "model_metadata": {
+        "champion_architecture": "Gradient Boosting",
+        "benchmark_symbol": "SPY",
+        "features_used": [
+            "daily_return",
+            "return_5d",
+            "return_20d",
+            "return_60d",
+            "volatility_20d",
+            "volatility_60d",
+            "sma_20_ratio",
+            "sma_50_ratio",
+            "sma_200_ratio",
+            "volume_ratio",
+            "drawdown",
+            "momentum_3m",
+            "momentum_6m"
+        ],
+        "regime_labels": {
+            "0": "Low Vol / Bull (Calm Expansion)",
+            "1": "Low Vol / Stagnant (Grinding Drift)",
+            "2": "High Vol / Bear (Crisis / Selloff)",
+            "3": "High Vol / Dynamic Rally (Volatile Rebound)"
+        }
+    },
+    "split_chronology": {
+        "train_period": "<= 2023-12-29 (627 days)",
+        "val_period": "2024-01-02 to 2024-12-31 (252 days)",
+        "test_period": "2025-01-02 to 2025-12-30 (249 days)"
+    },
+    "validation_benchmark": {
+        "Baseline (Majority Class)": {
+            "val_accuracy": 0.5833,
+            "val_macro_f1": 0.3684,
+            "val_macro_precision": 0.2917,
+            "val_macro_recall": 0.5
+        },
+        "Multinomial Logistic Regression": {
+            "val_accuracy": 0.8254,
+            "val_macro_f1": 0.8024,
+            "val_macro_precision": 0.8848,
+            "val_macro_recall": 0.7905
+        },
+        "Random Forest": {
+            "val_accuracy": 0.6706,
+            "val_macro_f1": 0.5631,
+            "val_macro_precision": 0.8196,
+            "val_macro_recall": 0.6048
+        },
+        "Gradient Boosting": {
+            "val_accuracy": 0.9246,
+            "val_macro_f1": 0.9229,
+            "val_macro_precision": 0.9208,
+            "val_macro_recall": 0.9259
+        }
+    },
+    "test_set_performance": {
+        "test_accuracy": 0.8876,
+        "test_macro_f1": 0.6744,
+        "test_macro_precision": 0.6756,
+        "test_macro_recall": 0.6895,
+        "confusion_matrix": [
+            [
+                88,
+                0,
+                0,
+                26
+            ],
+            [
+                0,
+                0,
+                1,
+                0
+            ],
+            [
+                0,
+                0,
+                63,
+                0
+            ],
+            [
+                1,
+                0,
+                0,
+                70
+            ]
+        ]
+    }
+}

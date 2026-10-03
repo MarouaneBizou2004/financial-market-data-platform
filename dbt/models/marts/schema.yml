@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: mart_asset_performance
+    description: "Core asset performance mart containing returns, volatility, Sharpe, Sortino, and drawdowns."
+    columns:
+      - name: symbol
+        description: "Ticker symbol of instrument."
+        tests:
+          - unique
+          - not_null
+      - name: annualized_volatility_pct
+        description: "Annualized realized volatility percentage."
+        tests:
+          - not_null
+      - name: sharpe_ratio
+        description: "Annualized Sharpe ratio over 3.5% risk free rate."
+        tests:
+          - not_null
+
+  - name: mart_risk_dashboard
+    description: "Risk-oriented performance rankings for executive dashboard."
+    columns:
+      - name: symbol
+        tests:
+          - unique
+          - not_null
+      - name: max_drawdown_pct
+        tests:
+          - not_null

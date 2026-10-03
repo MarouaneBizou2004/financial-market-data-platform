@@ -1,0 +1,148 @@
+# Configurable Asset Universe & Portfolio Specification
+# Defines tradeable universe, metadata, benchmark, and example portfolio weights.
+
+assets:
+  # US Equities
+  - symbol: AAPL
+    asset_name: "Apple Inc."
+    asset_type: equity
+    sector: Technology
+    industry: Consumer Electronics
+    currency: USD
+    exchange: NASDAQ
+
+  - symbol: MSFT
+    asset_name: "Microsoft Corporation"
+    asset_type: equity
+    sector: Technology
+    industry: Software - Infrastructure
+    currency: USD
+    exchange: NASDAQ
+
+  - symbol: NVDA
+    asset_name: "NVIDIA Corporation"
+    asset_type: equity
+    sector: Technology
+    industry: Semiconductors
+    currency: USD
+    exchange: NASDAQ
+
+  - symbol: AMZN
+    asset_name: "Amazon.com, Inc."
+    asset_type: equity
+    sector: Consumer Discretionary
+    industry: Internet Retail
+    currency: USD
+    exchange: NASDAQ
+
+  - symbol: GOOGL
+    asset_name: "Alphabet Inc."
+    asset_type: equity
+    sector: Communication Services
+    industry: Internet Content & Information
+    currency: USD
+    exchange: NASDAQ
+
+  - symbol: META
+    asset_name: "Meta Platforms, Inc."
+    asset_type: equity
+    sector: Communication Services
+    industry: Internet Content & Information
+    currency: USD
+    exchange: NASDAQ
+
+  - symbol: TSLA
+    asset_name: "Tesla, Inc."
+    asset_type: equity
+    sector: Consumer Discretionary
+    industry: Auto Manufacturers
+    currency: USD
+    exchange: NASDAQ
+
+  - symbol: JPM
+    asset_name: "JPMorgan Chase & Co."
+    asset_type: equity
+    sector: Financials
+    industry: Banks - Diversified
+    currency: USD
+    exchange: NYSE
+
+  - symbol: XOM
+    asset_name: "Exxon Mobil Corporation"
+    asset_type: equity
+    sector: Energy
+    industry: Oil & Gas Integrated
+    currency: USD
+    exchange: NYSE
+
+  - symbol: JNJ
+    asset_name: "Johnson & Johnson"
+    asset_type: equity
+    sector: Healthcare
+    industry: Drug Manufacturers - General
+    currency: USD
+    exchange: NYSE
+
+  # ETFs / Indices / Commodities / Fixed Income
+  - symbol: SPY
+    asset_name: "SPDR S&P 500 ETF Trust"
+    asset_type: etf
+    sector: Broad Market
+    industry: Large Cap Blend
+    currency: USD
+    exchange: NYSE Arca
+
+  - symbol: QQQ
+    asset_name: "Invesco QQQ Trust"
+    asset_type: etf
+    sector: Technology / Growth
+    industry: Large Cap Growth
+    currency: USD
+    exchange: NASDAQ
+
+  - symbol: DIA
+    asset_name: "SPDR Dow Jones Industrial Average ETF"
+    asset_type: etf
+    sector: Large Cap Value
+    industry: Mega Cap Blend
+    currency: USD
+    exchange: NYSE Arca
+
+  - symbol: IWM
+    asset_name: "iShares Russell 2000 ETF"
+    asset_type: etf
+    sector: Small Cap
+    industry: Small Cap Blend
+    currency: USD
+    exchange: NYSE Arca
+
+  - symbol: GLD
+    asset_name: "SPDR Gold Shares"
+    asset_type: etf
+    sector: Commodities
+    industry: Precious Metals
+    currency: USD
+    exchange: NYSE Arca
+
+  - symbol: TLT
+    asset_name: "iShares 20+ Year Treasury Bond ETF"
+    asset_type: etf
+    sector: Fixed Income
+    industry: Long-Term Treasury
+    currency: USD
+    exchange: NASDAQ
+
+# Benchmark asset for Market Regime, Beta, and Relative Return analysis
+benchmark:
+  symbol: SPY
+  asset_name: "SPDR S&P 500 ETF Trust"
+
+# Default Model Portfolio Configuration
+portfolio:
+  name: "Balanced Growth & Preservation Portfolio"
+  rebalance_frequency: "quarterly"
+  weights:
+    SPY: 0.35
+    QQQ: 0.25
+    GLD: 0.20
+    TLT: 0.20

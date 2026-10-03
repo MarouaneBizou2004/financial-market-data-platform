@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # ==============================================================================
+  # 1. PostgreSQL Analytical Data Warehouse
+  # ==============================================================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: market_postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-market_warehouse}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./sql/schema/01_create_market_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ==============================================================================
+  # 2. Apache Spark Master (Transformation Layer)
+  # ==============================================================================
+  spark-master:
+    image: bitnami/spark:3.5
+    container_name: market_spark_master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+    ports:
+      - "8080:8080" # Spark Web UI
+      - "7077:7077" # Spark Master Port
+    volumes:
+      - ./data:/opt/bitnami/spark/data
+      - ./src:/opt/bitnami/spark/src
+
+  # ==============================================================================
+  # 3. Apache Airflow Orchestration (Standalone Dev Mode)
+  # ==============================================================================
+  airflow:
+    image: apache/airflow:2.8.2-python3.10
+    container_name: market_airflow
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://postgres:postgres@postgres:5432/market_warehouse
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION=False
+    ports:
+      - "8085:8080"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./data:/opt/airflow/data
+      - ./src:/opt/airflow/src
+      - ./config:/opt/airflow/config
+      - ./reports:/opt/airflow/reports
+    command: >
+      bash -c "airflow db init &&
+               airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com &&
+               airflow standalone"
+
+  # ==============================================================================
+  # 4. Streamlit Interactive Dashboard
+  # ==============================================================================
+  dashboard:
+    image: python:3.10-slim
+    container_name: market_dashboard
+    restart: always
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8501:8501"
+    command: >
+      bash -c "pip install --no-cache-dir -r requirements.txt &&
+               streamlit run dashboards/app.py --server.port=8501 --server.address=0.0.0.0"
+
+volumes:
+  postgres_data:
