@@ -484,7 +484,7 @@ docker-compose ps
 **Marouane Bizou**  
 - **GitHub:** [@MarouaneBizou2004](https://github.com/MarouaneBizou2004)  
 - **Role:** data analyste
-
+- **email:** mmarouane365@gmail.com
 ---
 
 ## Resume / Portfolio Bullet Points
