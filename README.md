@@ -483,7 +483,7 @@ docker-compose ps
 
 **Marouane Bizou**  
 - **GitHub:** [@MarouaneBizou2004](https://github.com/MarouaneBizou2004)  
-- **Role:** Senior Data Engineer | Quantitative Analytics & ML  
+- **Role:** data analyste
 
 ---
 
